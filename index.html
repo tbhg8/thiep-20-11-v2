@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kính Chúc Mừng 20/11 - Mở Thư Tri Ân</title>
+    <style>
+        /* RESET & CĂN GIỮA */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #ffe6f0, #fff8dc);
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        /* 🌸 DÒNG CHỮ CHÚC MỪNG */
+        .title-text {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ff1493;
+            text-shadow: 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 40px #ff69b4;
+            margin-bottom: 30px;
+            animation: glow 2s ease-in-out infinite alternate;
+            text-align: center;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 40px #ff69b4; }
+            to { text-shadow: 0 0 20px #ffb6c1, 0 0 40px #ff69b4, 0 0 60px #ff1493; }
+        }
+
+        /* PHONG BÌ */
+        .envelope-wrapper {
+            width: 450px;
+            height: 320px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.5s ease-in-out;
+            z-index: 20;
+            border-radius: 10px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            background-color: #f7f7f7;
+            background-image: linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.1) 75%, transparent 75%, transparent);
+            background-size: 20px 20px;
+            border: 2px solid #ccc;
+        }
+
+        .envelope-body {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border-bottom: 320px solid #f2cfb6;
+            border-left: 225px solid transparent;
+            border-right: 225px solid transparent;
+            width: 0;
+            height: 0;
+            z-index: 2;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-top: 160px solid #d3a487;
+            border-left: 225px solid transparent;
+            border-right: 225px solid transparent;
+            transform-origin: top;
+            transition: transform 0.5s ease-in-out;
+            z-index: 4;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        /* THƯ BÊN TRONG */
+        .letter-content {
+            width: 90%;
+            height: 90%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.1);
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            opacity: 0;
+            border-radius: 8px;
+            transition: all 0.6s ease-in-out 0.4s;
+        }
+
+        .card {
+            padding: 25px;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            text-align: center;
+            overflow-y: auto;
+        }
+
+        /* HIỆU ỨNG MỞ THƯ */
+        body.open .envelope-flap {
+            transform: rotateX(180deg);
+        }
+
+        body.open .letter-content {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 100vh;
+            z-index: 30;
+        }
+
+        /* CHỮ GỢI Ý DƯỚI */
+        .hint {
+            position: absolute;
+            top: 80%;
+            z-index: 10;
+            transition: opacity 0.3s;
+            font-size: 1em;
+            color: #444;
+            font-weight: bold;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { opacity: 0.4; }
+        }
+
+        body.open .hint {
+            opacity: 0;
+        }
+
+        /* NỘI DUNG THƯ */
+        h1 {
+            color: #e91e63;
+            font-size: 1.6em;
+            margin-bottom: 25px;
+        }
+
+        .message-content {
+            font-size: 0.95em;
+            line-height: 1.6;
+            color: #333;
+            margin: 12px 0;
+            padding: 0 5px;
+            text-align: justify;
+        }
+
+        .footer {
+            margin-top: 25px;
+            border-top: 1px dashed #ccc;
+            padding-top: 15px;
+            text-align: right;
+        }
+
+        .signature {
+            font-style: italic;
+            font-weight: bold;
+            color: #007bff;
+            font-size: 1em;
+        }
+
+        /* HIỆU ỨNG HOA & TIM RƠI */
+        .falling {
+            position: fixed;
+            top: -10px;
+            font-size: 18px;
+            animation: fall linear forwards;
+            z-index: 0;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="title-text">🌸 Kính chúc ng nhà giáo Việt Nam — Mở thư bên dưới 🌸</div>
+
+    <div class="envelope-wrapper">
+        <div class="envelope-flap"></div>
+        <div class="letter-content">
+            <div class="card">
+                <h1>🌸 Kính Chúc Mừng Ngày Nhà Giáo Việt Nam 20/11 🌸</h1>
+                <p class="message-content">Kính gửi các Thầy Cô giáo kính mến!</p>
+                <p class="message-content">
+                    Nhân ngày 20/11, tập thể lớp 8C8 xin gửi lời tri ân sâu sắc nhất đến những người đã và đang chèo lái con thuyền tri thức. Công ơn của Thầy Cô lớn lao như trời biển.
+                </p>
+                <p class="message-content">
+                    Cảm ơn Thầy Cô đã dành hết tâm huyết và sự kiên nhẫn vô bờ bến. 
+                    Từng lời giảng, từng ánh mắt khích lệ sẽ là hành trang quý giá nhất theo chúng em suốt cuộc đời. 
+                    Kính chúc Thầy Cô luôn dồi dào sức khỏe và hạnh phúc!
+                </p>
+                <div class="footer">
+                    <p class="signature">Tổ 1 Lớp 8C8</p>
+                    <p class="date">Tháng 11, Năm 2025</p>
+                </div>
+            </div>
+        </div>
+        <div class="envelope-body"></div>
+    </div>
+
+    <p class="hint">💌 Bấm vào thư để mở 💌</p>
+
+    <script>
+        // Hiệu ứng mở thư
+        document.addEventListener('DOMContentLoaded', function() {
+            const envelope = document.querySelector('.envelope-wrapper');
+
+            envelope.addEventListener('click', function() {
+                document.body.classList.toggle('open');
+            });
+
+            // Hiệu ứng hoa và tim rơi
+            function createFallingItem() {
+                const el = document.createElement('div');
+                el.classList.add('falling');
+                el.textContent = ['🌸','💮','🌺','💖','🌷','🌹'][Math.floor(Math.random() * 6)];
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.animationDuration = 4 + Math.random() * 5 + 's';
+                el.style.fontSize = (16 + Math.random() * 12) + 'px';
+                document.body.appendChild(el);
+                setTimeout(() => el.remove(), 9000);
+            }
+            setInterval(createFallingItem, 500);
+        });
+    </script>
+</body>
+</html>
